@@ -1,0 +1,53 @@
+﻿Nro Factura: 00911
+Empresa: TODO RICO S.R.L.
+RUT: 0011223344
+Dirección: Avelino Miranda 123
+Fecha de emisión: 2015-09-18
+Item: 
+Cantidad: 2
+Descripción: Harina
+Precio: 24,05
+Item:
+        Cantidad: 1
+        Descripción: Azúcar
+        Precio: 30,00
+Item:
+        Cantidad: 1
+        Descripción: Chocolate
+        Precio: 145,00
+Item:
+        Cantidad: 1
+        Descripción: Manteca
+        Precio: 55,00
+Item:
+        Cantidad: 10,00
+        Descripción: Café en sobres
+        Precio: 3
+Item:
+        Cantidad: 1
+        Precio: 0,90
+Subtotal: 309,00
+IVA: 67,98
+Total: 376,98
+
+
+Nro Factura: 00912
+Empresa: TODO RICO S.R.L.
+RUT: 0011223344
+Dirección: Avelino Miranda 123
+Fecha de emisión: 2015-09-19
+Item: 
+        Cantidad: 1
+Descripción: Agua sin Gas
+Precio: 44,50
+Item:
+        Cantidad: 2
+        Descripción: Jugo de fruta
+        Precio: 60,00
+Item 
+        Cantidad: 6
+        Descripción: Sandwich de jamón y queso
+        Precio: 22,00
+Subtotal: 296,50
+IVA: 65,23
+Total: 363,00

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="facturas">
+        <xs:complexType>
+            <xs:sequence>
+                <!-- Defina su esquema -->
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
