@@ -15,42 +15,47 @@ import org.xml.sax.helpers.DefaultHandler;
 //Programa principal
 public class Main {
 
-   public void main(String[] args) {
-	   //Ruta actual
-	   System.out.println(System.getProperty("user.dir"));
+   public static void main(String[] args) {
+
+	   //Directorio actual
+	   String dir = System.getProperty("user.dir");
+	   
+	   //Xml
+	   String xml = dir + "\\archivos\\xml\\ejemplo.xml";
+	   
+	   parserXml(xml);
    }
 
-   Boolean validate(String xml, String xsd){
+   static Boolean validate(String xml, String xsd){
 	   return false;
    }
 
    //Parseador de datos
-   void parserXml(String xml){
+   static void parserXml(String xml){
 
 	   try {
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser saxParser = factory.newSAXParser();
 			
-			//Definicion de los datos
+			//Manejador de los datos xml
 			DefaultHandler handler = new DefaultHandler() {
 	
-				//Funcion llamada al inicio de un elemento del Xml
+				//Funcion llamada al inicio de un tag
 				public void startElement(String uri, String localName,String qName,Attributes attributes) throws SAXException {
-
 					//Imprimo tag
 					System.out.println(qName + ": ");
 				}
 
-				//Funcion llamada al fin de un elemento del Xml
+				//Funcion llamada al fin de un tag
 				public void endElement(String uri, String localName,String qName) throws SAXException {}
 
-				//Funcion llamada entre el inicio y el fin de un elemento del Xml
+				//Funcion llamada entre el inicio y el fin de un elemento
 				public void characters(char ch[], int start, int length) throws SAXException {
 					System.out.println(new String(ch, start, length));
 				}
 				
 				
-			}; //End handler
+			}; //End manejador
 			
 			//Parsear datos
 			saxParser.parse(xml, handler);
