@@ -19,14 +19,13 @@ public class Main {
 
 	   //Directorio actual
 	   String dir = System.getProperty("user.dir");
-	   
 	   //Xml
-	   String xml = dir + "\\archivos\\xml\\ejemplo.xml";
+	   String xml = dir + "\\archivos\\xml\\facturas-2.xml";
 	   
 	   parserXml(xml);
    }
 
-   static Boolean validate(String xml, String xsd){
+   static Boolean validateXml(String xml, String xsd){
 	   return false;
    }
 
@@ -39,21 +38,74 @@ public class Main {
 			
 			//Manejador de los datos xml
 			DefaultHandler handler = new DefaultHandler() {
+				boolean flag = false;
 	
-				//Funcion llamada al inicio de un tag
+				//Inicio de un tag
 				public void startElement(String uri, String localName,String qName,Attributes attributes) throws SAXException {
-					//Imprimo tag
-					System.out.println(qName + ": ");
+					if(qName == "factura"){
+						System.out.println("_____________________________________");
+						System.out.println("Nro Factura: " + attributes.getValue(0));
+					}
+					if(qName == "empresa"){
+						System.out.print("Empresa: ");
+						flag = true;
+					}
+					if(qName == "rut"){
+						System.out.print("RUT: ");
+						flag = true;
+					}
+					if(qName == "direccion"){
+						System.out.print("Dirección: ");
+						flag = true;
+					}
+					if(qName == "fechaDeEmision"){
+						System.out.print("Fecha de emisión: ");
+						flag = true;
+					}
+					if(qName == "item"){
+						System.out.println("\nItem:");
+					}
+					if(qName == "cantidad"){
+						System.out.print("\tCantidad: ");
+						flag = true;
+					}
+					if(qName == "descripcion"){
+						System.out.print("\tDescripción: ");
+						flag = true;
+					}
+					if(qName == "precio"){
+						System.out.print("\tPrecio: ");
+						flag = true;
+					}
+					if(qName == "subtotal"){
+						System.out.print("\nSubtotal: ");
+						flag = true;
+					}
+					if(qName == "iva"){
+						System.out.print("IVA: ");
+						flag = true;
+					}
+					if(qName == "total"){
+						System.out.print("Total: ");
+						flag = true;
+					}
+					
 				}
 
-				//Funcion llamada al fin de un tag
-				public void endElement(String uri, String localName,String qName) throws SAXException {}
-
-				//Funcion llamada entre el inicio y el fin de un elemento
+				//Datos del tag
 				public void characters(char ch[], int start, int length) throws SAXException {
-					System.out.println(new String(ch, start, length));
+					if(flag == true){
+						System.out.println(new String(ch, start, length));
+						flag = false;
+					}
 				}
 				
+				//Fin de un tag
+				public void endElement(String uri, String localName,String qName) throws SAXException {
+					if(qName == "factura"){
+						System.out.println("_____________________________________\n");
+					}
+				}
 				
 			}; //End manejador
 			
