@@ -3,8 +3,59 @@
     <xs:element name="facturas">
         <xs:complexType>
             <xs:sequence>
-                <!-- Defina su esquema -->
-            </xs:sequence>
-        </xs:complexType>
+                <xs:element name="factura" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>                                  
+                            <xs:element name="empresa" minOccurs="1">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                    <xs:whiteSpace value="preserve" />
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="rut" type="xs:positiveInteger" minOccurs="1"/>
+                            <xs:element name="direccion" minOccurs="1">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                    <xs:whiteSpace value="preserve" />
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="fechaDeEmision" type="xs:date" minOccurs="1"/>
+                            <xs:element name="item" maxOccurs="unbounded" minOccurs="1">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="cantidad">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:positiveInteger">
+                                                 <xs:minInclusive value="1" />
+                                                 <xs:maxInclusive value="10" />
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="descripcion" maxOccurs="1" minOccurs="0">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string" >
+                                                <xs:whiteSpace value="preserve" />
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="precio" type="xs:decimal" minOccurs="1"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="subtotal" type="xs:decimal" minOccurs="1"/>
+                            <xs:element name="iva" type="xs:decimal" minOccurs="1"/>
+                            <xs:element name="total" type="xs:decimal" minOccurs="1" />
+                        </xs:sequence>
+                        <xs:attribute name="nroFactura" type="xs:positiveInteger" use="required"/>    
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence> 
+        </xs:complexType>  
+        <xs:unique name="unique-nroFactura">
+	        <xs:selector xpath="factura"/>
+	        <xs:field xpath="@nroFactura"/>
+        </xs:unique>      
     </xs:element>
 </xs:schema>
