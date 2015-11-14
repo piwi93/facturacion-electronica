@@ -6,22 +6,21 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;*/
 
+//Sax Imports
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-//SAX and external XSD
-import org.xml.sax.XMLReader;
-import javax.xml.transform.Source;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.InputSource;
+//Dom Imports
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.JDOMParseException;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.input.sax.XMLReaderJDOMFactory;
+import org.jdom2.input.sax.XMLReaderXSDFactory;
 
 
 //Programa principal
@@ -36,53 +35,23 @@ public class Main {
 	   String xsd = dir + "\\archivos\\xsd\\validacion_factura.xsd";
 	   
 	   //Defino xml
-	   String xml = dir + "\\archivos\\xml\\facturas-1.xml";
+	   String xml = dir + "\\archivos\\xml\\facturas-2.xml";
 	   
 	   try {
 		   validateXml(xml, xsd);
-		   //parserXml(xml);
+		   parserXml(xml);
 	   }
 	   catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
    }
+   
+   
 
    
    static void validateXml(String xml, String xsd){
 	   try {
-		   SAXParserFactory factory = SAXParserFactory.newInstance();
-		   factory.setValidating(false); 
-		   factory.setNamespaceAware(true);
 		   
-		   SchemaFactory schemaFactory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
-		   SAXParser parser = null;
-		   
-	       factory.setSchema(schemaFactory.newSchema(new Source[] {new StreamSource( xsd )}));
-	       parser = factory.newSAXParser();
-	       
-	       XMLReader reader = parser.getXMLReader();
-	       
-	       reader.setErrorHandler(
-	          new ErrorHandler() {
-	        	  
-	            public void warning(SAXParseException e) throws SAXException {
-	              System.out.println("WARNING: " + e.getMessage()); // do nothing
-	            }
-	
-	            public void error(SAXParseException e) throws SAXException {
-	              System.out.println("ERROR : " + e.getMessage());
-	              throw e;
-	            }
-	
-	            public void fatalError(SAXParseException e) throws SAXException {
-	              System.out.println("FATAL : " + e.getMessage());
-	              throw e;
-	            }
-	          }
-	       );
-	       
-	       reader.parse(new InputSource(xml));
-	       System.out.println("ESO EE!");
 	   }
 	   catch (Exception e) {
 		   e.printStackTrace();
@@ -185,16 +154,3 @@ public class Main {
 
 
 } //End Main
-
-
-
-/**** Ejemplos *****/
-/*
-	Validacion de XSD online http://www.freeformatter.com/xml-validator-xsd.html
-	SAXPArser https://docs.oracle.com/javase/tutorial/jaxp/sax/parsing.html
-	
-	How to read XML file in Java – (SAX Parser): http://www.mkyong.com/java/how-to-read-xml-file-in-java-sax-parser/
-	Xml parsing data DOM & SAX: http://www.java-samples.com/showtutorial.php?tutorialid=152
-	Validar documentos XML usando XSD: http://www.bitriding.com/articulos/validacion-con-xsd.html
-	Validación de ficheros XML usando un esquema XSD (JAVA): http://jesus.hernandez.abeleira.com/2014/03/validacion-de-ficheros-xml-contra-un.html
-*/
