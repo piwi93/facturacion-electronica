@@ -5,11 +5,23 @@ package org.fing.tecnoinf.app;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;*/
+
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+//SAX and external XSD
+import org.xml.sax.XMLReader;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+import org.xml.sax.InputSource;
 
 
 //Programa principal
@@ -17,18 +29,68 @@ public class Main {
 
    public static void main(String[] args) {
 
-	   //Directorio actual
+	   //Obtengo directorio actual
 	   String dir = System.getProperty("user.dir");
-	   //Xml
-	   String xml = dir + "\\archivos\\xml\\facturas-2.xml";
 	   
-	   parserXml(xml);
+	   //Defino xsd
+	   String xsd = dir + "\\archivos\\xsd\\validacion_factura.xsd";
+	   
+	   //Defino xml
+	   String xml = dir + "\\archivos\\xml\\facturas-1.xml";
+	   
+	   try {
+		   validateXml(xml, xsd);
+		   //parserXml(xml);
+	   }
+	   catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
    }
 
-   static Boolean validateXml(String xml, String xsd){
-	   return false;
+   
+   static void validateXml(String xml, String xsd){
+	   try {
+		   SAXParserFactory factory = SAXParserFactory.newInstance();
+		   factory.setValidating(false); 
+		   factory.setNamespaceAware(true);
+		   
+		   SchemaFactory schemaFactory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
+		   SAXParser parser = null;
+		   
+	       factory.setSchema(schemaFactory.newSchema(new Source[] {new StreamSource( xsd )}));
+	       parser = factory.newSAXParser();
+	       
+	       XMLReader reader = parser.getXMLReader();
+	       
+	       reader.setErrorHandler(
+	          new ErrorHandler() {
+	        	  
+	            public void warning(SAXParseException e) throws SAXException {
+	              System.out.println("WARNING: " + e.getMessage()); // do nothing
+	            }
+	
+	            public void error(SAXParseException e) throws SAXException {
+	              System.out.println("ERROR : " + e.getMessage());
+	              throw e;
+	            }
+	
+	            public void fatalError(SAXParseException e) throws SAXException {
+	              System.out.println("FATAL : " + e.getMessage());
+	              throw e;
+	            }
+	          }
+	       );
+	       
+	       reader.parse(new InputSource(xml));
+	       System.out.println("ESO EE!");
+	   }
+	   catch (Exception e) {
+		   e.printStackTrace();
+	   }
    }
 
+   
+   
    //Parseador de datos
    static void parserXml(String xml){
 
