@@ -5,20 +5,22 @@
 		<rut>0011223344</rut>
 		<direccion>Avelino Miranda 123</direccion>
 		<fechaDeEmision>2015-04-29</fechaDeEmision>
-		<item>
-			<cantidad>2</cantidad>
-			<descripcion>Harina</descripcion>
-			<precio>24.05</precio>
-		</item>
-		<item>
-			<cantidad>1</cantidad>
-			<descripcion>Azúcar</descripcion>
-			<precio>30.00</precio>
-		</item>
-		<item>
-			<cantidad>1</cantidad>
-			<precio>0.90</precio>
-		</item>
+		<items>
+			<item>
+				<cantidad>2</cantidad>
+				<descripcion>Harina</descripcion>
+				<precio>24.05</precio>
+			</item>
+			<item>
+				<cantidad>1</cantidad>
+				<descripcion>Azúcar</descripcion>
+				<precio>30.00</precio>
+			</item>
+			<item>
+				<cantidad>1</cantidad>
+				<precio>0.90</precio>
+			</item>
+		</items>
 		<subtotal>60.00</subtotal>
 		<iva>13.20</iva>
 		<total>73.20</total>
@@ -28,15 +30,17 @@
 		<rut>0011223344</rut>
 		<direccion>Avelino Miranda 123</direccion>
 		<fechaDeEmision>15 de junio de 2015</fechaDeEmision>
-		<item>
-			<descripcion>Agua sin Gas</descripcion>
-			<precio>$44.50</precio>
-		</item>
-		<item>
-			<cantidad>11</cantidad>
-			<descripcion>Azúcar</descripcion>
-			<precio>30.00</precio>
-		</item>
+		<items>
+			<item>
+				<descripcion>Agua sin Gas</descripcion>
+				<precio>$44.50</precio>
+			</item>
+			<item>
+				<cantidad>11</cantidad>
+				<descripcion>Azúcar</descripcion>
+				<precio>30.00</precio>
+			</item>
+		</items>
 		<iva>82.39</iva>
 		<total>456.89</total>
 	</factura>

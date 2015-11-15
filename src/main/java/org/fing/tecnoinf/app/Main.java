@@ -3,8 +3,8 @@ package org.fing.tecnoinf.app;
 //Imports
 /*import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;*/
+import java.util.Iterator;*/
+import java.util.List;
 
 //Sax Imports
 import javax.xml.parsers.SAXParser;
@@ -16,8 +16,6 @@ import org.xml.sax.helpers.DefaultHandler;
 //Dom Imports
 import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jdom2.JDOMException;
-import org.jdom2.input.JDOMParseException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.input.sax.XMLReaderJDOMFactory;
 import org.jdom2.input.sax.XMLReaderXSDFactory;
@@ -34,7 +32,7 @@ public class Main {
 	   //Defino xsd
 	   String xsd = dir + "\\archivos\\xsd\\validacion_factura.xsd";
 	   
-	   //Defino xml
+	   //Defino xml a usar
 	   String xml = dir + "\\archivos\\xml\\facturas-2.xml";
 	   
 	   try {
@@ -49,19 +47,90 @@ public class Main {
    
 
    
-   static void validateXml(String xml, String xsd){
+   static void validateXml(String xml, String xsd) throws Exception {
+	   
+	   //Bandera booleana, mensaje.
+	   boolean successful = false;
+	   
 	   try {
+		   //Definiciones
+		   XMLReaderJDOMFactory  XmlRXsdFactory = new XMLReaderXSDFactory(xsd);
+		   SAXBuilder SaxBuilder = new SAXBuilder(XmlRXsdFactory);
+		   Document XmlDocument = SaxBuilder.build(xml);
+		   Element elementFacturas = XmlDocument.getRootElement();
 		   
-	   }
+		   //Defino lista de facturas
+		   List<Element> facturas = elementFacturas.getChildren("factura");
+		   
+		   //Logica del validador Dom
+		   for (Element factura : facturas) {
+				
+			    //Defino numero de factura
+			    int nroFactura = factura.getAttribute("nroFactura").getIntValue();
+			    
+			    //Defino subtotal/iva/total de la factura
+			    Element subtotal = factura.getChild("subtotal");
+				Element iva = factura.getChild("iva");
+				Element total = factura.getChild("total");
+				
+			    //Capturo los items
+			    List<Element> items = factura.getChild("items").getChildren("item");
+				
+			    //Calculo de subtotal real
+			    float real_subtotal = 0;
+			    for (Element item : items) {
+					real_subtotal += ( Float.parseFloat(item.getChild("cantidad").getValue()) * Float.parseFloat(item.getChild("precio").getValue()) );
+			    }
+				
+				//Calculo iva real
+				float real_iva = (22 * real_subtotal) / 100;
+				
+				//Calculo total real
+				float real_total = real_subtotal + real_iva;
+				
+				
+				//Validaciones independientes: valores reales vs facturados
+				
+				if (real_subtotal != Float.valueOf(subtotal.getValue())) {
+					throw new Exception("Factura nº"+nroFactura+", subtotal erroneo.");
+				}
+				if (real_iva != Float.valueOf(iva.getValue())) {
+					throw new Exception("Factura nº"+nroFactura+", iva erroneo segun lista de items presentes.");
+				}
+
+				if (real_total != Float.valueOf(total.getValue())) {
+					throw new Exception("Factura nº"+nroFactura+", error en suma del subtotal y el iva presentes.");
+				}
+
+			}//End for
+		   
+		    //Set successful flag to true
+		    successful = true;
+			
+	   } //End try
+	   
 	   catch (Exception e) {
-		   e.printStackTrace();
+		   throw new Exception(e);
 	   }
-   }
+	   
+	   finally {
+		   if(successful){
+			   System.out.println("\n_____________________________________");
+			   System.out.println("Facturas correctas.");
+			   System.out.println("_____________________________________\n");
+		   }
+		   else{
+			   System.out.println("\n_____________________________________");
+			   System.out.println("Facturas erroneas, por favor corregir.");
+			   System.out.println("_____________________________________\n");
+		   }
+	   }
+   } //End validate
 
    
    
    //Parseador de datos
-   static void parserXml(String xml){
+   static void parserXml(String xml) throws Exception {
 
 	   try {
 			SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -146,11 +215,10 @@ public class Main {
 	   
 	   //Capturo errores
 	   catch (Exception e) {
-		   e.printStackTrace();
+		   throw new Exception(e);
 	   }
 
 
    } //End parserXml
-
 
 } //End Main

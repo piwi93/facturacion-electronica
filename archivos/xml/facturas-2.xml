@@ -5,35 +5,37 @@
 		<rut>0011223344</rut>
 		<direccion>Avelino Miranda 123</direccion>
 		<fechaDeEmision>2015-09-18</fechaDeEmision>
-		<item>
-			<cantidad>2</cantidad>
-			<descripcion>Harina</descripcion>
-			<precio>24.05</precio>
-		</item>
-		<item>
-			<cantidad>1</cantidad>
-			<descripcion>Azúcar</descripcion>
-			<precio>30.00</precio>
-		</item>
-		<item>
-			<cantidad>1</cantidad>
-			<descripcion>Chocolate</descripcion>
-			<precio>145.00</precio>
-		</item>
-		<item>
-			<cantidad>1</cantidad>
-			<descripcion>Manteca</descripcion>
-			<precio>55.00</precio>
-		</item>
-		<item>
-			<cantidad>10.00</cantidad>
-			<descripcion>Café en sobres</descripcion>
-			<precio>3</precio>
-		</item>
-		<item>
-			<cantidad>1</cantidad>
-			<precio>0.90</precio>
-		</item>
+		<items>
+			<item>
+				<cantidad>2</cantidad>
+				<descripcion>Harina</descripcion>
+				<precio>24.05</precio>
+			</item>
+			<item>
+				<cantidad>1</cantidad>
+				<descripcion>Azúcar</descripcion>
+				<precio>30.00</precio>
+			</item>
+			<item>
+				<cantidad>1</cantidad>
+				<descripcion>Chocolate</descripcion>
+				<precio>145.00</precio>
+			</item>
+			<item>
+				<cantidad>1</cantidad>
+				<descripcion>Manteca</descripcion>
+				<precio>55.00</precio>
+			</item>
+			<item>
+				<cantidad>10</cantidad>
+				<descripcion>Café en sobres</descripcion>
+				<precio>3</precio>
+			</item>
+			<item>
+				<cantidad>1</cantidad>
+				<precio>0.90</precio>
+			</item>
+		</items>
 		<subtotal>309.00</subtotal>
 		<iva>67.98</iva>
 		<total>376.98</total>
@@ -43,21 +45,23 @@
 		<rut>0011223344</rut>
 		<direccion>Avelino Miranda 123</direccion>
 		<fechaDeEmision>2015-09-19</fechaDeEmision>
-		<item>
-			<cantidad>1</cantidad>
-			<descripcion>Agua sin Gas</descripcion>
-			<precio>44.50</precio>
-		</item>
-		<item>
-			<cantidad>2</cantidad>
-			<descripcion>Jugo de fruta</descripcion>
-			<precio>60.00</precio>
-		</item>
-		<item>
-			<cantidad>6</cantidad>
-			<descripcion>Sandwich de jamón y queso</descripcion>
-			<precio>22.00</precio>
-		</item>
+		<items>
+			<item>
+				<cantidad>1</cantidad>
+				<descripcion>Agua sin Gas</descripcion>
+				<precio>44.50</precio>
+			</item>
+			<item>
+				<cantidad>2</cantidad>
+				<descripcion>Jugo de fruta</descripcion>
+				<precio>60.00</precio>
+			</item>
+			<item>
+				<cantidad>6</cantidad>
+				<descripcion>Sandwich de jamón y queso</descripcion>
+				<precio>22.00</precio>
+			</item>
+		</items>
 		<subtotal>296.50</subtotal>
 		<iva>65.23</iva>
 		<total>363.00</total>
